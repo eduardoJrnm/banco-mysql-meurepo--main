@@ -103,6 +103,10 @@ router.post('/register', authController.register);
  *             schema:
  *               type: object
  *               properties:
+ *                 id:
+ *                   type: integer
+ *                 nome_social:
+ *                   type: string
  *                 token:
  *                   type: string
  *       401:

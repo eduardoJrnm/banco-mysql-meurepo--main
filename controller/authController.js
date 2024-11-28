@@ -27,12 +27,14 @@ exports.login = async(req, res) => {
         const user = await User.findOne({where: {email, active: true}});
 
         if (user && await bcrypt.compare(password, user.password)){
+            const id = user.id;
+            const nome_social = user.nome_social;
             const token = jwt.sign(
                 {id: user.id, nome_social: user.nome_social, email: user.email},
                 process.env.ACCES_TOKEN_SECRET,
                 { expiresIn: '1h'}
             );
-            res.json({token});
+            res.json({id, nome_social, token});
 
         } else {
             return res.status(401).send({message: 'Invalid credentials od inactive user'});
